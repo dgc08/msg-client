@@ -140,9 +140,8 @@ def command_processor():
     return True
 
 
-if __name__ == "__main__":
-    pas = input("Welcome to the client. Please authenticate: ")
-    print("Logged in as", simple_getter("/getusr", {"password": pas}))
+pas = input("Welcome to the client. Please authenticate: ")
+print("Logged in as", simple_getter("/getusr", {"password": pas}))
 
-    while command_processor():
-        pass
+while command_processor():
+    pass
