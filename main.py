@@ -3,7 +3,8 @@ import sys
 
 pas = ""
 server = "http://192.168.178.90:5000/api"
-uns = "http://192.168.178.90/api/uns"
+#uns = "http://192.168.178.90:5000/api/uns"
+uns = "http://192.168.178.90:69/openuns"
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.
@@ -67,6 +68,7 @@ def uns_send(args):
     args[1] = uns_resolve(args[1])
     if args[1] == None:
         print("User not found. check spelling and uns server")
+        return
     else:
         print("Found address on", name)
     hash_send(args)
@@ -134,7 +136,7 @@ def command_processor():
         uns = args[1]
     if args[0] == "test":
         pass
-        #exec (input())
+        exec (input())
 
 
     return True
