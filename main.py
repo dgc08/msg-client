@@ -2,8 +2,8 @@ import requests
 import sys
 
 pas = ""
-server = "http://localhost:5000/api"
-uns = "http://localhost:5000/api/uns"
+server = "http://192.168.178.90:5000/api"
+uns = "http://192.168.178.90/api/uns"
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.
@@ -126,6 +126,12 @@ def command_processor():
         print("Logged in as", simple_getter("/getusr", {"password": pas}))
     if args[0] == "us" or args[0] == "uns.send":
         uns_send(args)
+    if args[0] == "server":
+        global server
+        server = args[1]
+    if args[0] == "uns_server":
+        global uns
+        uns = args[1]
     if args[0] == "test":
         pass
         #exec (input())
