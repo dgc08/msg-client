@@ -1,10 +1,10 @@
 import requests
 import sys
 
+logged_actions= ["hs", "us", "hash.send", "uns.send", "f", "fetch"]
+
 pas = ""
-server = "http://192.168.178.90:5000/api"
-#uns = "http://192.168.178.90:5000/api/uns"
-uns = "http://192.168.178.90:69/openuns"
+from settings import *
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.
@@ -114,6 +114,32 @@ def command_processor():
 
     args = inp.split(" ")
     args.append("")
+
+    if args[0] == "server":
+        global server
+        server = args[1]
+        print("Changed server.")
+
+        return True
+    if args[0] == "uns_server":
+        global uns
+        uns = args[1]
+
+        print("Changed UNS server.")
+
+        return True
+    if args[0] == "test":
+        pass
+        #exec (input())
+        return True
+    if args[0] == "login":
+        login()
+        return True
+
+    if pas == "" and args[0] in logged_actions:
+        print("You have to be logged in to perform this action. Log in with 'login'.")
+        return True
+
     if args[0] == "hash.send":
         return hash_send(args)
     if args[0] == "hs":
@@ -122,28 +148,20 @@ def command_processor():
         return recive(args)
     if args[0] == "f":
         return recive(args)
-    if args[0] == "logout":
-        global pas
-        pas = input("Welcome to the client. Please authenticate: ")
-        print("Logged in as", simple_getter("/getusr", {"password": pas}))
     if args[0] == "us" or args[0] == "uns.send":
         uns_send(args)
-    if args[0] == "server":
-        global server
-        server = args[1]
-    if args[0] == "uns_server":
-        global uns
-        uns = args[1]
-    if args[0] == "test":
-        pass
-        exec (input())
-
 
     return True
 
+def login():
+    global pas
+    pas = input("Welcome to the client. Please authenticate: ")
+    print("Logged in as", simple_getter("/getusr", {"password": pas}))
 
-pas = input("Welcome to the client. Please authenticate: ")
-print("Logged in as", simple_getter("/getusr", {"password": pas}))
-
-while command_processor():
-    pass
+a = True
+while a:
+    try:
+        a = command_processor()
+    except KeyboardInterrupt:
+        print("\n")
+        a = True
