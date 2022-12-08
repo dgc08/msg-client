@@ -1,2 +1,4 @@
 __pychache__/
-settings.py
+*.json
+build/
+dist/

@@ -1,10 +1,18 @@
 import requests
 import sys
+import json
 
-logged_actions= ["hs", "us", "hash.send", "uns.send", "f", "fetch"]
+logged_actions= ["hs", "us", "hash.send", "uns.send", "f", "fetch", "whoami"]
 
 pas = ""
-from settings import *
+
+with open("settings.json", "r") as f:
+    js = json.load(f)
+server = js["server"]
+uns = js["uns"]
+
+if js.get("token", None) is not None:
+    pas = js["token"]
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.
@@ -150,6 +158,8 @@ def command_processor():
         return recive(args)
     if args[0] == "us" or args[0] == "uns.send":
         uns_send(args)
+    if args[0] == "whoami":
+        print("Logged in as", simple_getter("/getusr", {"password": pas}))
 
     return True
 
