@@ -16,3 +16,4 @@ e /exit :             exit
 login:                login with a token/password / login and then logout
 
 The settings.json file explains itself.
+Take a look at the msg- [client](https://github.com/dgc08/msg-client), [server](https://github.com/dgc08/msg-server) and [python api](https://github.com/dgc08/msg-purepy)
